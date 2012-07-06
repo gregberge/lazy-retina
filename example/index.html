@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Lazy-retina example</title>
+	<style>
+	body{font-family: sans-serif; font-size: 0.8em}
+	.case{display: inline-block; width: 400px}
+	.case p{margin: 5px 0; text-align: center}
+	.toggle{display:block; font-size: 1.5em}
+	</style>
+	
+	<script src="../lazy-retina.js"></script>
+	<script>
+		//Force retina
+		lzld.config.retina = true;
+		
+		function updateLabels()
+		{
+			var imgs = document.getElementsByTagName("img"), 
+			    pathLabels = document.getElementsByClassName("path"),
+			    i, il = imgs.length;
+			
+			for(i = 0; i < il; i++)
+			{
+				pathLabels[i].innerHTML = imgs[i].src;
+			}
+		};
+		
+		function toggleRetina()
+		{
+			lzld.config.retina = !lzld.config.retina;
+			lzld.update();
+			
+			updateLabels();
+		};
+	</script>
+</head>
+<body>
+	<div class="case">
+	<img data-src="img/penelope.jpg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" onload="lzld(this)" onerror="lzld(this)" width="400" height="250">
+	<p class="path"></p>
+	<p>Lazyload image</p>
+	</div>
+	<div class="case">
+	<img src="img/penelope.jpg" onload="lzld(this)" onerror="lzld(this)" width="400" height="250">
+	<p class="path"></p>
+	<p>Non lazyload image</p>
+	</div>
+	<input type="button" value="Toggle Retina" onclick="toggleRetina();" class="toggle">
+</body>
+</html>
