@@ -17,7 +17,6 @@ you do not have any other scripts in the `<head>`.
     onload="lzld(this)" onerror="lzld(this)"
     width="200" height="400" >
 ```
-3. Enjoy
 
 ## And for non-lazyloaded images ?
 
@@ -25,7 +24,7 @@ It's possible to use lazy-retina for non-lazyloaded images, it's the same syntax
 
 1. Add lazy-retina.min.js to your page before any `<script>` tag, either src or inline if
 you do not have any other scripts in the `<head>`.
-2. Change all `<img>` tags to lazyload :
+2. Change all `<img>` tags to add support :
 
 ```html
   <img
@@ -33,7 +32,6 @@ you do not have any other scripts in the `<head>`.
     onload="lzld(this)" onerror="lzld(this)"
     width="200" height="400" >
 ```
-3. Enjoy
 
 ## Who use it ?
 
@@ -59,6 +57,21 @@ We can configure lazy-retina for custom use :
 * `minDevicePixelRatio` : The min device pixel ratio to enable retina in "auto" mode.
 * `offset` : Vertical offset in px. Used for preloading images while scrolling
 
+### The default hdCallback
+
+The default hd callback simply add `@2x` to the img like on iOS platforms :
+
+````javascript
+function defaultHdCallback(src)
+{
+	var srcSegments = src.split("."),
+	    srcWithoutExtension = srcSegments.slice(0, (srcSegments.length - 1)).join("."),
+	    extension = srcSegments[srcSegments.length - 1];
+	
+	return srcWithoutExtension + "@2x." + extension;
+}
+````
+
 ## Methods
 
 ### lzld.update()
@@ -77,13 +90,22 @@ Check if the device is retina according to `lzld.config.minDevicePixelRatio`.
 
 ## Browser support
 
-TODO
+*IE6+ or modern browser.*
+
+IE6/7 originally does not support data uri:s images but using the onerror event on to-be-lazyloaded images, we're able to register the current image in the lazyloader.
+The only drawback is that you can have red crosses showing that original data uri:s image cannot be loaded. But well, it's old IE so no big deal.
+
+You can have IE6/7 support without the hack, use the `b.gif` image instead of the data uri:s and remove `onerror`.
 
 ## How does it works
 
 Lazy-retina is based on fasterize lazyload, so it's efficient and speedy. You can see how the lazyload part works on https://github.com/fasterize/lazyload/.
 
 The retina part is no more complicated, it test if retina is active and supported and execute a callback to modify the source in order to load the retina image file.
+
+## Credits
+
+Fully based on very powerful https://github.com/fasterize/lazyload/
 
 ## Licence
 

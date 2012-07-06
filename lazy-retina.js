@@ -1,26 +1,9 @@
 /*
-  lazyload.js: Image lazy loading
-
-  Copyright (c) 2012 Vincent Voyer, http://fasterize.com
-
-  Permission is hereby granted, free of charge, to any person obtaining
-  a copy of this software and associated documentation files (the
-  "Software"), to deal in the Software without restriction, including
-  without limitation the rights to use, copy, modify, merge, publish,
-  distribute, sublicense, and/or sell copies of the Software, and to
-  permit persons to whom the Software is furnished to do so, subject to
-  the following conditions:
-
-  The above copyright notice and this permission notice shall be
-  included in all copies or substantial portions of the Software.
-
-  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-  LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  lazy-retina.js : Image lazy loading with retina support
+  version : 0.1
+  
+  https://github.com/neoziro/lazy-retina/
+  https://github.com/fasterize/lazyload/
 
 */
 
@@ -52,9 +35,15 @@ if (!window['lzld']) {
 	window['lzld']['update'] = update;
 
 	dataNoHDAttr = "data-no-hd-src",
-	dataHDAttr = "data-hd-src",
-	pixelRatio = typeof window.devicePixelRatio !== "undefined" ? window.devicePixelRatio : 1,
-	isRetinaDevice = pixelRatio >= window['lzld']['config']['minDevicePixelRatio'];
+	dataHDAttr = "data-hd-src";
+	
+	function isRetinaDevice()
+	{
+		var pixelRatio = typeof window.devicePixelRatio !== "undefined" ? window.devicePixelRatio : 1;
+		return pixelRatio >= window.lzld.config.minDevicePixelRatio;
+	}
+	
+	window['lzld']['isRetinaDevice'] = isRetinaDevice;
 
     // init
     domready(findImages);
@@ -118,7 +107,7 @@ if (!window['lzld']) {
         // we do not return anything as
         // https://github.com/documentcloud/underscore/issues/387
         fn.apply(this, arguments);
-      }
+      };
     }
 
     // X-browser
@@ -195,7 +184,7 @@ if (!window['lzld']) {
 		var attr = img.getAttribute(window.lzld.config.lazyAttr) ? window.lzld.config.lazyAttr : "src",
 		    src = img.getAttribute(attr);
 		
-		if(window.lzld.config.retina === true || (window.lzld.config.retina === "auto" && isRetinaDevice))
+		if(window.lzld.config.retina === true || (window.lzld.config.retina === "auto" && isRetinaDevice()))
 		{
 			if(!img.getAttribute(dataHDAttr))
 			{
@@ -239,7 +228,7 @@ if (!window['lzld']) {
 		    extension = srcSegments[srcSegments.length - 1];
 		
 		return srcWithoutExtension + "@2x." + extension;
-	};
+	}
 
     // cross browser viewport calculation
     function viewport() {
@@ -339,5 +328,5 @@ if (!window['lzld']) {
 		showImages();
 	}
 
-  }(this, document))
+  }(this, document));
 }

@@ -10,7 +10,7 @@
 	.toggle{display:block; font-size: 1.5em}
 	</style>
 	
-	<script src="../lazy-retina.js"></script>
+	<script src="../lazy-retina.min.js"></script>
 	<script>
 		//Force retina
 		lzld.config.retina = true;
@@ -38,12 +38,12 @@
 </head>
 <body>
 	<div class="case">
-	<img data-src="img/penelope.jpg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" onload="lzld(this)" onerror="lzld(this)" width="400" height="250">
+	<img data-src="imgs/penelope.jpg" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" onload="lzld(this)" onerror="lzld(this)" width="400" height="250">
 	<p class="path"></p>
 	<p>Lazyload image</p>
 	</div>
 	<div class="case">
-	<img src="img/penelope.jpg" onload="lzld(this)" onerror="lzld(this)" width="400" height="250">
+	<img src="imgs/penelope.jpg" onload="lzld(this)" onerror="lzld(this)" width="400" height="250">
 	<p class="path"></p>
 	<p>Non lazyload image</p>
 	</div>
