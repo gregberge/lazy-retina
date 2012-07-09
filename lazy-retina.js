@@ -1,11 +1,9 @@
 /*
   lazy-retina.js : Image lazy loading with retina support
   version : 0.1
-  
   https://github.com/neoziro/lazy-retina/
-  https://github.com/fasterize/lazyload/
-
 */
+/*! lazyload v0.8.4 fasterize.com | github.com/fasterize/lazyload#licence */
 
 // Prevent double lazyload script on same page
 // We NEED to use string as closure compiler would otherwise compile this statement badly
